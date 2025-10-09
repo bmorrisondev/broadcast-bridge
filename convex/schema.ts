@@ -11,6 +11,8 @@ export default defineSchema({
 
   // Podcasts table
   podcasts: defineTable({
+    // External organization id (e.g., Clerk org_id)
+    orgId: v.string(),
     title: v.string(),
     description: v.optional(v.string()),
     feedUrl: v.string(),
@@ -23,8 +25,11 @@ export default defineSchema({
     category: v.optional(v.string()),
     explicit: v.boolean(),
     imageUrl: v.optional(v.string()),
+    // Convex file storage reference for cover image
+    imageFileId: v.optional(v.id("_storage")),
     lastUpdated: v.number(), // timestamp
   })
+    .index("by_orgId", ["orgId"])
     .index("by_feedUrl", ["feedUrl"])
     .index("by_author", ["author"])
     .index("by_category", ["category"]),
