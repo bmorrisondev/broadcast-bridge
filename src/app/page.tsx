@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MessagesExample } from "@/components/messages-example";
 
 export default function Home() {
   return (
@@ -98,6 +99,11 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
+      
+      {/* Convex + Clerk Demo */}
+      <div className="mt-8 w-full max-w-2xl">
+        <MessagesExample />
+      </div>
     </div>
   );
 }
