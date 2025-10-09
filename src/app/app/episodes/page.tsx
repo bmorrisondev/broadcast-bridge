@@ -4,12 +4,29 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { api } from "../../../../convex/_generated/api";
 import { useQuery } from "convex/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function EpisodesPage() {
   const router = useRouter();
   const data = useQuery(api.episodes.listByPodcast);
+  const [copied, setCopied] = useState(false);
+
+  const rssUrl =
+    typeof window !== "undefined" && data?.podcast?.orgId
+      ? `${window.location.origin}/feed/${data.podcast.orgId}.xml`
+      : "";
+
+  async function handleCopyRss() {
+    if (!rssUrl) return;
+    try {
+      await navigator.clipboard.writeText(rssUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // no-op; clipboard may be unavailable
+    }
+  }
 
   // Redirect to onboarding if there is no podcast set up yet
   useEffect(() => {
@@ -20,11 +37,18 @@ export default function EpisodesPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold">Episodes</h1>
-        <Link href={{ pathname: "/app/episodes/new" }}>
-          <Button>Add episode</Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          {data?.podcast ? (
+            <Button variant="secondary" onClick={handleCopyRss} disabled={!rssUrl}>
+              {copied ? "Copied!" : "Copy RSS"}
+            </Button>
+          ) : null}
+          <Link href={{ pathname: "/app/episodes/new" }}>
+            <Button>Add episode</Button>
+          </Link>
+        </div>
       </div>
 
       {data === undefined ? (
