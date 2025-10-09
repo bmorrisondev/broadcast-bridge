@@ -1,5 +1,5 @@
 import { withOrgIdQuery } from "./auth";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
 export const listByPodcast = withOrgIdQuery({
@@ -95,5 +95,35 @@ export const create = mutation({
     });
 
     return episodeId;
+  },
+});
+
+// Public feed query by organization id (no auth).
+// Returns the podcast and its episodes sorted by most recent first.
+export const publicFeed = query({
+  args: { orgId: v.string() },
+  handler: async (ctx, { orgId }) => {
+    const podcast = await ctx.db
+      .query("podcasts")
+      .withIndex("by_orgId", (q) => q.eq("orgId", orgId))
+      .first();
+
+    if (!podcast) return { podcast: null, episodes: [] as unknown[] } as const;
+
+    const episodes = await ctx.db
+      .query("episodes")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .withIndex("by_podcast", (q: any) => q.eq("podcastId", podcast._id))
+      .collect();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sorted = episodes.sort((a: any, b: any) => {
+      const ad = a.pubDate ?? 0;
+      const bd = b.pubDate ?? 0;
+      if (ad === bd) return (b._creationTime ?? 0) - (a._creationTime ?? 0);
+      return bd - ad;
+    });
+
+    return { podcast, episodes: sorted } as const;
   },
 });
