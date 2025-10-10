@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
 vi.mock('convex/react', () => ({
@@ -35,7 +35,9 @@ describe('EpisodesPage', () => {
     expect(screen.getByText('Loading…')).toBeInTheDocument();
   });
 
-  it('shows redirecting state when no podcast and triggers router.replace', async () => {
+  it('shows empty episodes state when no podcast and redirects after timeout', async () => {
+    vi.useFakeTimers();
+    
     const replace = vi.fn();
     
     // Mock the router before importing the component
@@ -51,12 +53,19 @@ describe('EpisodesPage', () => {
     (useQuery as unknown as Mock).mockReturnValue({ podcast: null, episodes: [] });
 
     render(<Page />);
-    expect(screen.getByText('Redirecting…')).toBeInTheDocument();
     
-    // Wait a bit for useEffect to run
-    await new Promise(resolve => setTimeout(resolve, 0));
+    // Initially shows empty state, not redirecting immediately
+    expect(screen.getByText('No episodes yet.')).toBeInTheDocument();
+    expect(replace).not.toHaveBeenCalled();
+    
+    // Fast forward past the 3 second timeout
+    act(() => {
+      vi.advanceTimersByTime(3100);
+    });
     
     expect(replace).toHaveBeenCalledWith('/app/onboarding');
+    
+    vi.useRealTimers();
   });
 
   it('shows empty state when there are no episodes', () => {

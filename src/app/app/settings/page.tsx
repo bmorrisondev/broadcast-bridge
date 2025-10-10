@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 
 interface SettingsFormState {
@@ -89,7 +90,7 @@ export default function SettingsPage() {
         ownerEmail: form.ownerEmail || undefined,
         category: form.category || undefined,
         explicit: !!form.explicit,
-        imageFileId,
+        imageFileId: imageFileId as Id<"_storage"> | undefined,
       });
       setSaved(true);
     } catch (err: unknown) {
