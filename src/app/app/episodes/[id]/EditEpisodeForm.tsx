@@ -7,6 +7,18 @@ import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { useRouter } from "next/navigation";
+import {
+  EditorProvider,
+  Editor,
+  Toolbar,
+  BtnBold,
+  BtnItalic,
+  BtnUnderline,
+  BtnBulletList,
+  BtnNumberedList,
+  BtnLink,
+  BtnClearFormatting,
+} from 'react-simple-wysiwyg';
 
 interface Props {
   id: Id<"episodes"> 
@@ -47,6 +59,10 @@ function EditEpisodeForm({ id }: Props) {
     const pd = episode.pubDate ? new Date(episode.pubDate).toISOString() : "";
     setPubDateInput(pd);
   }, [episode]);
+
+  function onDescriptionChange(e: { target: { value: string } }) {
+    setDescription(e.target.value);
+  }
 
   async function onSave() {
     if (!id) return;
@@ -160,12 +176,23 @@ function EditEpisodeForm({ id }: Props) {
 
         <div>
           <label className="block text-sm font-medium mb-1">Description</label>
-          <textarea
-            className="w-full rounded border px-3 py-2 bg-background min-h-28"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Episode description"
-          />
+          <EditorProvider>
+            <Toolbar>
+              <BtnBold />
+              <BtnItalic />
+              <BtnUnderline />
+              <BtnBulletList />
+              <BtnNumberedList />
+              <BtnLink />
+              <BtnClearFormatting />
+            </Toolbar>
+            <Editor
+              value={description}
+              onChange={onDescriptionChange}
+              containerProps={{ className: "rich-text rounded border bg-background" }}
+              style={{ minHeight: '7rem', padding: '0.5rem 0.75rem' }}
+            />
+          </EditorProvider>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
