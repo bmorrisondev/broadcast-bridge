@@ -1,35 +1,23 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { api } from "../../../../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import EpisodeListItem from "./EpisodeListItem";
+
+type EpisodeItem = {
+  _id: string;
+  title: string;
+  pubDate?: string | number | Date | null;
+  duration?: string | number | null;
+  episodeNumber?: number | null;
+};
 
 export default function EpisodesPage() {
   const router = useRouter();
   const data = useQuery(api.episodes.listByPodcast);
-  const [copied, setCopied] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
 
-  const rssUrl =
-    typeof window !== "undefined" && data?.podcast?.orgId
-      ? `${window.location.origin}/feed/${data.podcast.orgId}.xml`
-      : "";
-
-  async function handleCopyRss() {
-    if (!rssUrl) return;
-    try {
-      await navigator.clipboard.writeText(rssUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      // no-op; clipboard may be unavailable
-    }
-  }
-
-  // Redirect to onboarding if there is no podcast set up yet
   useEffect(() => {
     const t = setTimeout(() => {
       if (data && data.podcast === null) {
@@ -44,16 +32,6 @@ export default function EpisodesPage() {
     <div className="mx-auto w-full max-w-3xl p-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold">Episodes</h1>
-        <div className="flex items-center gap-2">
-          {data?.podcast ? (
-            <Button variant="secondary" onClick={handleCopyRss} disabled={!rssUrl}>
-              {copied ? "Copied!" : "Copy RSS"}
-            </Button>
-          ) : null}
-          <Link href={{ pathname: "/app/episodes/new" }}>
-            <Button>Add episode</Button>
-          </Link>
-        </div>
       </div>
 
       {data === undefined ? (
@@ -87,33 +65,22 @@ export default function EpisodesPage() {
           </div>
 
           {/* Episodes list */}
-          <ul className="space-y-3">
-            {data.episodes.map((ep) => (
-              <li key={ep._id} className="rounded border p-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-base font-medium">{ep.title}</div>
-                    {ep.pubDate ? (
-                      <div className="text-sm text-muted-foreground">
-                        {new Date(ep.pubDate).toLocaleString()}
-                      </div>
-                    ) : null}
-                    {ep.description ? (
-                      <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
-                        {ep.description}
-                      </p>
-                    ) : null}
-                  </div>
-                  <div className="text-right text-sm text-muted-foreground">
-                    {ep.duration ? <div>Duration: {ep.duration}</div> : null}
-                    {typeof ep.episodeNumber === "number" ? (
-                      <div>Episode #{ep.episodeNumber}</div>
-                    ) : null}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {(() => {
+            const episodes = (data.episodes ?? []) as EpisodeItem[];
+            return (
+              <ul className="space-y-3">
+                {episodes.map((ep) => (
+                  <EpisodeListItem
+                    key={ep._id}
+                    title={ep.title}
+                    pubDate={ep.pubDate}
+                    duration={ep.duration}
+                    episodeNumber={ep.episodeNumber}
+                  />
+                ))}
+              </ul>
+            );
+          })()}
         </div>
       )}
     </div>

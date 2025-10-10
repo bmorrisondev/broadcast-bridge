@@ -1,5 +1,5 @@
 import { withOrgIdQuery } from "./auth";
-import { mutation } from "./_generated/server";
+import { mutation, internalMutation } from "./_generated/server";
 import { v } from "convex/values";
 
 export const getCurrent = withOrgIdQuery({
@@ -10,6 +10,74 @@ export const getCurrent = withOrgIdQuery({
       .withIndex("by_orgId", (q) => q.eq("orgId", orgId))
       .first();
     return podcast ?? null;
+  },
+});
+
+// Upsert a podcast for the authenticated org from feed metadata (includes imageUrl)
+export const upsertFromFeed = mutation({
+  args: {
+    title: v.string(),
+    description: v.optional(v.string()),
+    websiteUrl: v.optional(v.string()),
+    language: v.optional(v.string()),
+    copyright: v.optional(v.string()),
+    author: v.optional(v.string()),
+    ownerName: v.optional(v.string()),
+    ownerEmail: v.optional(v.string()),
+    category: v.optional(v.string()),
+    explicit: v.boolean(),
+    imageUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.org_id) throw new Error("Not authenticated");
+    const orgId = String(identity.org_id);
+    const now = Date.now();
+
+    const existing = await ctx.db
+      .query("podcasts")
+      .withIndex("by_orgId", (q) => q.eq("orgId", orgId))
+      .first();
+
+    const feedUrl = `/feeds/${orgId}.xml`;
+
+    if (existing) {
+      await ctx.db.patch(existing._id, {
+        title: args.title,
+        description: args.description,
+        websiteUrl: args.websiteUrl,
+        language: args.language,
+        copyright: args.copyright,
+        author: args.author,
+        ownerName: args.ownerName,
+        ownerEmail: args.ownerEmail,
+        category: args.category,
+        explicit: args.explicit,
+        feedUrl,
+        imageUrl: args.imageUrl ?? existing.imageUrl,
+        lastUpdated: now,
+      });
+      return existing._id;
+    }
+
+    const id = await ctx.db.insert("podcasts", {
+      orgId,
+      title: args.title,
+      description: args.description,
+      feedUrl,
+      websiteUrl: args.websiteUrl,
+      language: args.language,
+      copyright: args.copyright,
+      author: args.author,
+      ownerName: args.ownerName,
+      ownerEmail: args.ownerEmail,
+      category: args.category,
+      explicit: args.explicit,
+      imageUrl: args.imageUrl,
+      imageFileId: undefined,
+      lastUpdated: now,
+    });
+    return id;
   },
 });
 
@@ -98,6 +166,55 @@ export const upsertForOrg = mutation({
       explicit: args.explicit,
       imageUrl: imageUrl,
       imageFileId: args.imageFileId,
+      lastUpdated: now,
+    });
+    return id;
+  },
+});
+
+// Create a podcast for an organization from server-side events (e.g., webhooks).
+// This bypasses user auth and can be invoked via ctx.runMutation(internal.podcasts.createFromOrg, ...)
+export const createFromOrg = internalMutation({
+  args: {
+    orgId: v.string(),
+    title: v.string(),
+    imageUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, { orgId, title, imageUrl }) => {
+    const now = Date.now();
+
+    const existing = await ctx.db
+      .query("podcasts")
+      .withIndex("by_orgId", (q) => q.eq("orgId", orgId))
+      .first();
+
+    const feedUrl = `/feeds/${orgId}.xml`;
+
+    if (existing) {
+      await ctx.db.patch(existing._id, {
+        title,
+        feedUrl,
+        imageUrl: imageUrl ?? existing.imageUrl,
+        lastUpdated: now,
+      });
+      return existing._id;
+    }
+
+    const id = await ctx.db.insert("podcasts", {
+      orgId,
+      title,
+      description: undefined,
+      feedUrl,
+      websiteUrl: undefined,
+      language: undefined,
+      copyright: undefined,
+      author: undefined,
+      ownerName: undefined,
+      ownerEmail: undefined,
+      category: undefined,
+      explicit: false,
+      imageUrl,
+      imageFileId: undefined,
       lastUpdated: now,
     });
     return id;

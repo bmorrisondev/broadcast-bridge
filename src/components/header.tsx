@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { OrganizationSwitcher, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
 export function Header() {
@@ -32,7 +32,8 @@ export function Header() {
           </SignUpButton>
         </SignedOut>
         <SignedIn>
-          <UserButton />
+          <OrganizationSwitcher />
+          <UserButton showName />
         </SignedIn>
       </div>
     </header>

@@ -15,6 +15,8 @@ import type {
 } from "convex/server";
 import type * as auth from "../auth.js";
 import type * as episodes from "../episodes.js";
+import type * as http from "../http.js";
+import type * as import_ from "../import.js";
 import type * as messages from "../messages.js";
 import type * as podcasts from "../podcasts.js";
 
@@ -29,6 +31,8 @@ import type * as podcasts from "../podcasts.js";
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   episodes: typeof episodes;
+  http: typeof http;
+  import: typeof import_;
   messages: typeof messages;
   podcasts: typeof podcasts;
 }>;
