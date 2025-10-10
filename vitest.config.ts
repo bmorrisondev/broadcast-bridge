@@ -2,6 +2,14 @@ import { defineConfig } from 'vitest/config';
 import path from 'node:path';
 
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: []
+    }
+  },
+  esbuild: {
+    jsxInject: `import React from 'react'`
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
@@ -11,6 +19,12 @@ export default defineConfig({
       reporter: ['text', 'html'],
       reportsDirectory: './coverage',
       all: true,
+      thresholds: {
+        lines: 100,
+        functions: 100,
+        statements: 100,
+        branches: 100,
+      },
       include: ['src/**/*.{ts,tsx}'],
       exclude: [
         'src/middleware.ts',
@@ -18,10 +32,6 @@ export default defineConfig({
         '**/__tests__/**',
         'convex/_generated/**',
       ],
-      lines: 100,
-      functions: 100,
-      statements: 100,
-      branches: 100,
     },
   },
   resolve: {

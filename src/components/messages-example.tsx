@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { Id } from "../../convex/_generated/dataModel";
 
 export function MessagesExample() {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   const messages = useQuery(api.messages.getMessages);
   const createMessage = useMutation(api.messages.createMessage);
   const deleteMessage = useMutation(api.messages.deleteMessage);

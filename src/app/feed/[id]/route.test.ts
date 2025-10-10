@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
 
 vi.mock('convex/nextjs', () => ({
   fetchQuery: vi.fn(),
@@ -15,15 +15,15 @@ describe('RSS GET route', () => {
   });
 
   it('returns 404 when podcast is not found', async () => {
-    (fetchQuery as unknown as vi.Mock).mockResolvedValue({ podcast: null, episodes: [] });
+    (fetchQuery as unknown as Mock).mockResolvedValue({ podcast: null, episodes: [] });
     const req = new Request('https://example.com/feed/abc.xml');
-    const res = await GET(req, { params: { id: 'abc.xml' } });
+    const res = await GET(req, { params: Promise.resolve({ id: 'abc.xml' }) });
     expect(res.status).toBe(404);
     expect(await asText(res)).toContain('Feed not found');
   });
 
   it('returns 200 with valid RSS XML and escapes values', async () => {
-    (fetchQuery as unknown as vi.Mock).mockResolvedValue({
+    (fetchQuery as unknown as Mock).mockResolvedValue({
       podcast: {
         title: 'My & Show',
         description: 'Desc <test>',
@@ -59,7 +59,7 @@ describe('RSS GET route', () => {
     });
 
     const req = new Request('https://example.com/feed/pod-id');
-    const res = await GET(req, { params: { id: 'pod-id' } });
+    const res = await GET(req, { params: Promise.resolve({ id: 'pod-id' }) });
 
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toContain('application/rss+xml');

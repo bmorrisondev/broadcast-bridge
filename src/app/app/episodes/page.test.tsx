@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
 vi.mock('convex/react', () => ({
@@ -30,28 +30,37 @@ describe('EpisodesPage', () => {
   });
 
   it('shows loading state when data is undefined', () => {
-    (useQuery as unknown as vi.Mock).mockReturnValue(undefined);
+    (useQuery as unknown as Mock).mockReturnValue(undefined);
     render(<EpisodesPage />);
     expect(screen.getByText('Loading…')).toBeInTheDocument();
   });
 
   it('shows redirecting state when no podcast and triggers router.replace', async () => {
     const replace = vi.fn();
-    // override useRouter for this test
-    vi.doMock('next/navigation', () => ({ useRouter: () => ({ replace, back: vi.fn() }) }));
+    
+    // Mock the router before importing the component
+    const mockUseRouter = vi.fn(() => ({ replace, back: vi.fn() }));
+    vi.doMock('next/navigation', () => ({ 
+      useRouter: mockUseRouter
+    }));
 
-    (useQuery as unknown as vi.Mock).mockReturnValue({ podcast: null, episodes: [] });
-    const Page = (await import('./page')).default;
+    // Clear module cache and re-import
+    vi.resetModules();
+    const { default: Page } = await import('./page');
+    
+    (useQuery as unknown as Mock).mockReturnValue({ podcast: null, episodes: [] });
 
     render(<Page />);
     expect(screen.getByText('Redirecting…')).toBeInTheDocument();
-    await waitFor(() => {
-      expect(replace).toHaveBeenCalledWith('/app/onboarding');
-    });
+    
+    // Wait a bit for useEffect to run
+    await new Promise(resolve => setTimeout(resolve, 0));
+    
+    expect(replace).toHaveBeenCalledWith('/app/onboarding');
   });
 
   it('shows empty state when there are no episodes', () => {
-    (useQuery as unknown as vi.Mock).mockReturnValue({
+    (useQuery as unknown as Mock).mockReturnValue({
       podcast: { title: 'My Pod', description: 'Desc' },
       episodes: [],
     });
@@ -60,7 +69,7 @@ describe('EpisodesPage', () => {
   });
 
   it('renders podcast header and list when episodes exist', () => {
-    (useQuery as unknown as vi.Mock).mockReturnValue({
+    (useQuery as unknown as Mock).mockReturnValue({
       podcast: { title: 'My Pod', description: 'Desc', imageUrl: 'https://img' },
       episodes: [
         { _id: '1', title: 'Ep 1', description: 'd1', pubDate: 1733788800000 },

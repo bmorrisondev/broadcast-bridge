@@ -32,9 +32,10 @@ interface EpisodeItem {
 
 export async function GET(
   req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const rawId = context.params.id;
+  const resolvedParams = await context.params;
+  const rawId = resolvedParams.id;
   const orgId = rawId.endsWith(".xml") ? rawId.replace(/\.xml$/i, "") : rawId;
 
   const { podcast, episodes } = await fetchQuery(api.episodes.publicFeed, {
