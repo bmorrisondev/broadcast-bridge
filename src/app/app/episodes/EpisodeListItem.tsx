@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 export interface EpisodeListItemProps {
+  id: string;
   title: string;
   pubDate?: string | number | Date | null;
   duration?: string | number | null;
@@ -6,7 +9,7 @@ export interface EpisodeListItemProps {
 }
 
 export default function EpisodeListItem(props: EpisodeListItemProps) {
-  const { title, pubDate, duration, episodeNumber } = props;
+  const { id, title, pubDate, duration, episodeNumber } = props;
 
   function formatDuration(value: string | number | null | undefined): string | null {
     if (value === null || value === undefined || value === "") return null;
@@ -47,23 +50,28 @@ export default function EpisodeListItem(props: EpisodeListItemProps) {
   }
 
   return (
-    <li className="rounded border p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <div className="text-base font-medium">{title}</div>
-          {pubDate ? (
-            <div className="text-sm text-muted-foreground">
-              {new Date(pubDate).toLocaleString()}
-            </div>
-          ) : null}
+    <li>
+      <Link
+        href={`/app/episodes/${id}`}
+        className="block rounded border p-4 hover:bg-muted/40"
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="text-base font-medium">{title}</div>
+            {pubDate ? (
+              <div className="text-sm text-muted-foreground">
+                {new Date(pubDate).toLocaleString()}
+              </div>
+            ) : null}
+          </div>
+          <div className="text-right text-sm text-muted-foreground">
+            {duration ? <div>{formatDuration(duration)}</div> : null}
+            {typeof episodeNumber === "number" ? (
+              <div>Episode #{episodeNumber}</div>
+            ) : null}
+          </div>
         </div>
-        <div className="text-right text-sm text-muted-foreground">
-          {duration ? <div>{formatDuration(duration)}</div> : null}
-          {typeof episodeNumber === "number" ? (
-            <div>Episode #{episodeNumber}</div>
-          ) : null}
-        </div>
-      </div>
+      </Link>
     </li>
   );
 }

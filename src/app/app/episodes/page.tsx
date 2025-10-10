@@ -72,6 +72,7 @@ export default function EpisodesPage() {
                 {episodes.map((ep) => (
                   <EpisodeListItem
                     key={ep._id}
+                    id={ep._id}
                     title={ep.title}
                     pubDate={ep.pubDate}
                     duration={ep.duration}
