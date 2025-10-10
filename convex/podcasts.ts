@@ -81,6 +81,56 @@ export const upsertFromFeed = mutation({
   },
 });
 
+// Remove a podcast and its episodes for an organization (server-side only)
+export const removeForOrg = internalMutation({
+  args: { orgId: v.string() },
+  handler: async (ctx, { orgId }) => {
+    const podcast = await ctx.db
+      .query("podcasts")
+      .withIndex("by_orgId", (q) => q.eq("orgId", orgId))
+      .first();
+
+    if (!podcast) return false as const;
+
+    // Collect all episodes for this podcast
+    const episodes = await ctx.db
+      .query("episodes")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .withIndex("by_podcast", (q: any) => q.eq("podcastId", podcast._id))
+      .collect();
+
+    // Delete episode storage (audio) where applicable, then the episodes
+    for (const ep of episodes) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const audioFileId = (ep as any).audioFileId;
+      if (audioFileId) {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await ctx.storage.delete(audioFileId as any);
+        } catch {
+          // ignore storage deletion errors
+        }
+      }
+      await ctx.db.delete(ep._id);
+    }
+
+    // Delete podcast image file if present
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const imageFileId = (podcast as any).imageFileId;
+    if (imageFileId) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await ctx.storage.delete(imageFileId as any);
+      } catch {
+        // ignore storage deletion errors
+      }
+    }
+
+    await ctx.db.delete(podcast._id);
+    return true as const;
+  },
+});
+
 // Generate a temporary upload URL for podcast image uploads
 export const generateUploadUrl = mutation({
   args: {},
@@ -191,10 +241,20 @@ export const createFromOrg = internalMutation({
     const feedUrl = `/feeds/${orgId}.xml`;
 
     if (existing) {
+      const nextImageUrl = imageUrl ?? existing.imageUrl;
+      // If nothing changed, skip the write
+      if (
+        existing.title === title &&
+        existing.feedUrl === feedUrl &&
+        existing.imageUrl === nextImageUrl
+      ) {
+        return existing._id;
+      }
+
       await ctx.db.patch(existing._id, {
         title,
         feedUrl,
-        imageUrl: imageUrl ?? existing.imageUrl,
+        imageUrl: nextImageUrl,
         lastUpdated: now,
       });
       return existing._id;

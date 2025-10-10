@@ -19,17 +19,24 @@ const handler = httpAction(async (ctx, request) => {
       await ctx.runMutation(internal.podcasts.createFromOrg, {
         orgId: String(org.id),
         title: org.name ?? "Untitled",
-        // Clerk org payloads commonly provide image_url or logo_url
-        imageUrl: org.image_url ?? org?.logo_url,
+        imageUrl: org.image_url,
       });
     },
 
-    onOrganizationUpdated: async () => {
-      // No-op for now
+    onOrganizationUpdated: async (org) => {
+      // upsert the podcast when org metadata changes (name/logo)
+      await ctx.runMutation(internal.podcasts.createFromOrg, {
+        orgId: String(org?.id),
+        title: org?.name ?? "Untitled",
+        imageUrl: org?.image_url,
+      });
     },
 
-    onOrganizationDeleted: async () => {
-      // No-op for now
+    onOrganizationDeleted: async (org) => {
+      // Remove podcast and episodes for the deleted organization
+      const id = (org as { id?: string }).id;
+      if (!id) return;
+      await ctx.runMutation(internal.podcasts.removeForOrg, { orgId: String(id) });
     },
   });
 
