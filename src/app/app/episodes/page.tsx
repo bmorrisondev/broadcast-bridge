@@ -11,6 +11,7 @@ export default function EpisodesPage() {
   const router = useRouter();
   const data = useQuery(api.episodes.listByPodcast);
   const [copied, setCopied] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const rssUrl =
     typeof window !== "undefined" && data?.podcast?.orgId
@@ -32,6 +33,7 @@ export default function EpisodesPage() {
   useEffect(() => {
     const t = setTimeout(() => {
       if (data && data.podcast === null) {
+        setIsRedirecting(true);
         router.replace("/app/onboarding");
       }
     }, 3000);
@@ -56,7 +58,7 @@ export default function EpisodesPage() {
 
       {data === undefined ? (
         <p className="text-muted-foreground">Loading…</p>
-      ) : data.podcast === null ? (
+      ) : isRedirecting ? (
         <p className="text-muted-foreground">Redirecting…</p>
       ) : data.episodes.length === 0 ? (
         <div className="rounded border p-4 text-muted-foreground">
