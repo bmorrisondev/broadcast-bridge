@@ -30,9 +30,12 @@ export default function EpisodesPage() {
 
   // Redirect to onboarding if there is no podcast set up yet
   useEffect(() => {
-    if (data && data.podcast === null) {
-      router.replace("/app/onboarding");
-    }
+    const t = setTimeout(() => {
+      if (data && data.podcast === null) {
+        router.replace("/app/onboarding");
+      }
+    }, 3000);
+    return () => clearTimeout(t);
   }, [data, router]);
 
   return (
