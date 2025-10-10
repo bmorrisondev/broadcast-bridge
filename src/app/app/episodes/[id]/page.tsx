@@ -1,9 +1,13 @@
-import React from 'react'
+import EditEpisodeForm from "./EditEpisodeForm";
+import { Id } from "../../../../../convex/_generated/dataModel";
 
-function EpisodePage() {
-  return (
-    <div>EpisodePage</div>
-  )
+interface EpisodePageProps {
+  params: Promise<{ id: string }>;
 }
 
-export default EpisodePage
+export default async function EpisodePage(props: EpisodePageProps) {
+  const { params } = await props;
+  const { id } = await params;
+
+  return <EditEpisodeForm id={id as Id<"episodes">} />;
+}

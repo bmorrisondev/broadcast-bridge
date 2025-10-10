@@ -2,6 +2,7 @@ import { withOrgIdQuery } from "./auth";
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
+
 export const listByPodcast = withOrgIdQuery({
   handler: async (ctx, orgId) => {
     // Look up the podcast by external org id
@@ -33,6 +34,96 @@ export const listByPodcast = withOrgIdQuery({
     });
 
     return { podcast, episodes: sorted } as const;
+  },
+});
+
+// Fetch a single episode by id (must belong to the caller's org's podcast)
+export const getById = query({
+  args: { id: v.id("episodes") },
+  handler: async (ctx, { id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    // if (!identity?.org_id) throw new Error("Not authenticated");
+
+    const episode = await ctx.db.get(id);
+    if (!episode) return null;
+
+    const podcast = await ctx.db.get(episode.podcastId as Id<"podcasts">);
+    if (!podcast) return null;
+
+    if (String(podcast.orgId) !== String(identity?.org_id)) {
+      throw new Error("Not authorized");
+    }
+
+    return episode;
+  },
+});
+
+// Update basic editable fields on an episode
+export const update = mutation({
+  args: {
+    id: v.id("episodes"),
+    title: v.optional(v.string()),
+    description: v.optional(v.string()),
+    pubDate: v.optional(v.number()),
+    explicit: v.optional(v.boolean()),
+    duration: v.optional(v.string()),
+    episodeNumber: v.optional(v.number()),
+    seasonNumber: v.optional(v.number()),
+    keywords: v.optional(v.array(v.string())),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.org_id) throw new Error("Not authenticated");
+
+    const { id, ...updates } = args;
+    const episode = await ctx.db.get(id);
+    if (!episode) throw new Error("Episode not found");
+
+    const podcast = await ctx.db.get(episode.podcastId as Id<"podcasts">);
+    if (!podcast || String(podcast.orgId) !== String(identity.org_id)) {
+      throw new Error("Not authorized");
+    }
+
+    // Remove undefined fields so we only patch provided values
+    const toPatch: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(updates)) {
+      if (v !== undefined) toPatch[k] = v;
+    }
+
+    if (Object.keys(toPatch).length === 0) return id;
+
+    await ctx.db.patch(id, toPatch);
+    return id;
+  },
+});
+
+// Delete an episode (and associated audio file if present)
+export const remove = mutation({
+  args: { id: v.id("episodes") },
+  handler: async (ctx, { id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.org_id) throw new Error("Not authenticated");
+
+    const episode = await ctx.db.get(id);
+    if (!episode) throw new Error("Episode not found");
+
+    const podcast = await ctx.db.get(episode.podcastId as Id<"podcasts">);
+    if (!podcast || String(podcast.orgId) !== String(identity.org_id)) {
+      throw new Error("Not authorized");
+    }
+
+    // Delete stored audio file if exists
+    const audioFileId = (episode as { audioFileId?: Id<"_storage"> }).audioFileId;
+    if (audioFileId) {
+      try {
+        await ctx.storage.delete(audioFileId);
+      } catch {
+        // ignore storage deletion errors
+      }
+    }
+
+    await ctx.db.delete(id);
+    return true as const;
   },
 });
 
