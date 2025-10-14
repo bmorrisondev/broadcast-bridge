@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export function Header() {
@@ -11,6 +12,7 @@ export function Header() {
         href='/'
         className='flex items-center gap-x-4'
       >
+        <Image src='/bblogo.png' alt='Broadcast Bridge' width={28} height={28} />
         <span className='font-semibold'>Broadcast Bridge</span>
       </Link>
       <SignedOut>
