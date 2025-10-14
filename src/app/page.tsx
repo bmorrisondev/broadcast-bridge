@@ -1,35 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="font-semibold">
-            Broadcast Bridge
-          </Link>
-          <nav className="hidden items-center gap-6 sm:flex">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground">
-              Features
-            </Link>
-            <Link href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground">
-              How it works
-            </Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground">
-              Pricing
-            </Link>
-            <Link href="/sign-in">
-              <Button size="sm" variant="secondary">Sign in</Button>
-            </Link>
-          </nav>
-          <div className="sm:hidden">
-            <Link href="/sign-in">
-              <Button size="sm" variant="secondary">Sign in</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+
 
       <main>
         <section className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">

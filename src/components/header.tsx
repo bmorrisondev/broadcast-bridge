@@ -1,5 +1,6 @@
+'use client';
 import { Button } from '@/components/ui/button';
-import { OrganizationSwitcher, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
 export function Header() {
@@ -11,6 +12,19 @@ export function Header() {
       >
         <span className='font-semibold'>Broadcast Bridge</span>
       </Link>
+      <SignedOut>
+        <nav className='hidden items-center gap-6 sm:flex'>
+          <Link href='#features' className='text-sm text-muted-foreground hover:text-foreground'>
+            Features
+          </Link>
+          <Link href='#how-it-works' className='text-sm text-muted-foreground hover:text-foreground'>
+            How it works
+          </Link>
+          <Link href='#pricing' className='text-sm text-muted-foreground hover:text-foreground'>
+            Pricing
+          </Link>
+        </nav>
+      </SignedOut>
       <div className='flex items-center gap-x-4'>
         <SignedOut>
           <SignInButton>
@@ -21,6 +35,9 @@ export function Header() {
           </SignUpButton>
         </SignedOut>
         <SignedIn>
+          <Link href='/app/episodes'>
+            <Button variant='ghost'>Dashboard</Button>
+          </Link>
           <UserButton showName />
         </SignedIn>
       </div>
