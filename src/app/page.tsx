@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Header } from "@/components/header";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -30,34 +30,42 @@ export default function Home() {
 
         <section id="features" className="border-t bg-muted/20">
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-lg border bg-background p-6">
-              <div className="text-2xl">🎙️</div>
-              <h3 className="mt-3 font-semibold">Episode management</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Draft, schedule, and publish episodes with titles, descriptions, and chapter notes.
-              </p>
-            </div>
-            <div className="rounded-lg border bg-background p-6">
-              <div className="text-2xl">🧩</div>
-              <h3 className="mt-3 font-semibold">Assets & show notes</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Attach audio files, cover art, and rich show notes that look great everywhere.
-              </p>
-            </div>
-            <div className="rounded-lg border bg-background p-6">
-              <div className="text-2xl">📡</div>
-              <h3 className="mt-3 font-semibold">Instant RSS feed</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                A standards‑compliant RSS feed ready for Apple Podcasts, Spotify, and more.
-              </p>
-            </div>
-            <div className="rounded-lg border bg-background p-6">
-              <div className="text-2xl">📈</div>
-              <h3 className="mt-3 font-semibold">Built to scale</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Fast, modern UI with a publisher‑first workflow. No bloat.
-              </p>
-            </div>
+            <Card>
+              <CardHeader>
+                <div className="text-2xl">🎙️</div>
+                <CardTitle className="mt-3">Episode management</CardTitle>
+                <CardDescription>
+                  Draft, schedule, and publish episodes with titles, descriptions, and chapter notes.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <div className="text-2xl">🧩</div>
+                <CardTitle className="mt-3">Assets & show notes</CardTitle>
+                <CardDescription>
+                  Attach audio files, cover art, and rich show notes that look great everywhere.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <div className="text-2xl">📡</div>
+                <CardTitle className="mt-3">Instant RSS feed</CardTitle>
+                <CardDescription>
+                  A standards‑compliant RSS feed ready for Apple Podcasts, Spotify, and more.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card>
+              <CardHeader>
+                <div className="text-2xl">📈</div>
+                <CardTitle className="mt-3">Built to scale</CardTitle>
+                <CardDescription>
+                  Fast, modern UI with a publisher‑first workflow. No bloat.
+                </CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </section>
 
@@ -84,10 +92,10 @@ export default function Home() {
 
         <section id="pricing" className="border-t">
           <div className="mx-auto max-w-6xl px-6 py-16">
-            <h2 className="text-center text-2xl font-semibold sm:text-3xl">Simple pricing</h2>
+            <h2 className="text-center text-2xl font-semibold sm:text-3xl">Free and open source</h2>
             <div className="mx-auto mt-8 max-w-md rounded-lg border p-6 text-center">
               <div className="text-4xl font-bold">Free</div>
-              <p className="mt-2 text-sm text-muted-foreground">Everything you need to publish your podcast.</p>
+              <p className="mt-2 text-sm text-muted-foreground">Everything you need to publish your podcast, at no cost. Open source.</p>
               <div className="mt-6">
                 <Link href="/sign-in">
                   <Button size="lg">Start for free</Button>

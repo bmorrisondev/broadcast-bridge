@@ -91,6 +91,7 @@ export default function SettingsPage() {
         category: form.category || undefined,
         explicit: !!form.explicit,
         imageFileId: imageFileId as Id<"_storage"> | undefined,
+        isOnboarded: true,
       });
       setSaved(true);
     } catch (err: unknown) {
