@@ -114,6 +114,7 @@ export default function NewPodcastPage() {
         category: form.category.trim() || undefined,
         explicit: !!form.explicit,
         imageFileId,
+        isOnboarded: true,
       });
       router.replace("/app/episodes");
     } catch (err: unknown) {

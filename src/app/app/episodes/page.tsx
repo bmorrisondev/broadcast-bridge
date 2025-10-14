@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import EpisodeListItem from "./EpisodeListItem";
+import PodcastHeader from "./PodcastHeader";
 
 type EpisodeItem = {
   _id: string;
@@ -17,16 +18,36 @@ export default function EpisodesPage() {
   const router = useRouter();
   const data = useQuery(api.episodes.listByPodcast);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const t = setTimeout(() => {
-      if (data && data.podcast === null) {
+      if (data && data.podcast && data.podcast.isOnboarded != true) {
         setIsRedirecting(true);
         router.replace("/app/onboarding");
-      }
-    }, 3000);
-    return () => clearTimeout(t);
+      } 
+    }, 1000);
+    return () => {
+      clearTimeout(t);
+      setIsLoading(false);
+    }
   }, [data, router]);
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto w-full max-w-3xl p-6">
+        <p className="text-muted-foreground">Loading…</p>
+      </div>
+    );
+  }
+
+  if(isRedirecting) {
+    return (
+      <div className="mx-auto w-full max-w-3xl p-6">
+        <p className="text-muted-foreground">Redirecting…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-3xl p-6">
@@ -34,39 +55,22 @@ export default function EpisodesPage() {
         <h1 className="text-2xl font-semibold">Episodes</h1>
       </div>
 
-      {data === undefined ? (
-        <p className="text-muted-foreground">Loading…</p>
-      ) : isRedirecting ? (
-        <p className="text-muted-foreground">Redirecting…</p>
-      ) : data.episodes.length === 0 ? (
+      {data?.episodes?.length === 0 ? (
         <div className="rounded border p-4 text-muted-foreground">
           No episodes yet.
         </div>
       ) : (
         <div className="space-y-6">
           {/* Podcast header */}
-          <div className="flex items-center gap-4">
-            {data.podcast?.imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={data.podcast.imageUrl}
-                alt={data.podcast.title}
-                className="h-16 w-16 rounded object-cover"
-              />
-            ) : null}
-            <div>
-              <div className="text-xl font-semibold">{data.podcast?.title}</div>
-              {data.podcast?.description ? (
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {data.podcast.description}
-                </p>
-              ) : null}
-            </div>
-          </div>
+          <PodcastHeader
+            title={data?.podcast?.title}
+            description={data?.podcast?.description ?? null}
+            imageUrl={data?.podcast?.imageUrl ?? null}
+          />
 
           {/* Episodes list */}
           {(() => {
-            const episodes = (data.episodes ?? []) as EpisodeItem[];
+            const episodes = (data?.episodes ?? []) as EpisodeItem[];
             return (
               <ul className="space-y-3">
                 {episodes.map((ep) => (

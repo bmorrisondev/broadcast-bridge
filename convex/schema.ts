@@ -28,6 +28,7 @@ export default defineSchema({
     // Convex file storage reference for cover image
     imageFileId: v.optional(v.id("_storage")),
     lastUpdated: v.number(), // timestamp
+    isOnboarded: v.optional(v.boolean()),
   })
     .index("by_orgId", ["orgId"])
     .index("by_feedUrl", ["feedUrl"])

@@ -76,6 +76,7 @@ export const upsertFromFeed = mutation({
       imageUrl: args.imageUrl,
       imageFileId: undefined,
       lastUpdated: now,
+      isOnboarded: false,
     });
     return id;
   },
@@ -156,6 +157,7 @@ export const upsertForOrg = mutation({
     explicit: v.boolean(),
     // Optional new image file for cover art
     imageFileId: v.optional(v.id("_storage")),
+    isOnboarded: v.boolean(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -192,6 +194,7 @@ export const upsertForOrg = mutation({
         // Keep feedUrl in sync with org
         feedUrl,
         lastUpdated: now,
+        isOnboarded: args.isOnboarded,
       };
       if (args.imageFileId) {
         patch.imageUrl = imageUrl;
@@ -217,6 +220,7 @@ export const upsertForOrg = mutation({
       imageUrl: imageUrl,
       imageFileId: args.imageFileId,
       lastUpdated: now,
+      isOnboarded: args.isOnboarded,
     });
     return id;
   },
@@ -276,6 +280,7 @@ export const createFromOrg = internalMutation({
       imageUrl,
       imageFileId: undefined,
       lastUpdated: now,
+      isOnboarded: false,
     });
     return id;
   },
