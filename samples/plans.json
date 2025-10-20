@@ -1,0 +1,138 @@
+[
+    {
+        "id": "cplan_34LG4kCF6SKu5SZXEHq9YS6lFu0",
+        "pathRoot": "",
+        "name": "Free",
+        "fee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "",
+            "currencySymbol": "$"
+        },
+        "annualFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "",
+            "currencySymbol": "$"
+        },
+        "annualMonthlyFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "",
+            "currencySymbol": "$"
+        },
+        "description": "",
+        "isDefault": true,
+        "isRecurring": true,
+        "hasBaseFee": false,
+        "forPayerType": "user",
+        "publiclyVisible": true,
+        "slug": "free_user",
+        "avatarUrl": "",
+        "features": [],
+        "freeTrialDays": null,
+        "freeTrialEnabled": false
+    },
+    {
+        "id": "cplan_34LHrnQojAIgm956xcYRBL66x0h",
+        "pathRoot": "",
+        "name": "Personal Plus",
+        "fee": {
+            "amount": 1000,
+            "amountFormatted": "10.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "annualFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "annualMonthlyFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "description": "For hosts with a growing audience.",
+        "isDefault": false,
+        "isRecurring": true,
+        "hasBaseFee": true,
+        "forPayerType": "user",
+        "publiclyVisible": true,
+        "slug": "personal_plus",
+        "avatarUrl": "",
+        "features": [
+            {
+                "id": "feat_34LGAJzSrslj8lAhOoK2hBx2BMH",
+                "pathRoot": "",
+                "name": "More episodes",
+                "description": "",
+                "slug": "more_episodes",
+                "avatarUrl": ""
+            },
+            {
+                "id": "feat_34LGBNOzu1VzY5diXhV5oyazvB8",
+                "pathRoot": "",
+                "name": "More bandwidth",
+                "description": "",
+                "slug": "more_bandwidth",
+                "avatarUrl": ""
+            }
+        ],
+        "freeTrialDays": null,
+        "freeTrialEnabled": false
+    },
+    {
+        "id": "cplan_34LHudzUgg0VUqsmX3jnyKO6oa4",
+        "pathRoot": "",
+        "name": "Professional",
+        "fee": {
+            "amount": 2000,
+            "amountFormatted": "20.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "annualFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "annualMonthlyFee": {
+            "amount": 0,
+            "amountFormatted": "0.00",
+            "currency": "USD",
+            "currencySymbol": "$"
+        },
+        "description": "For established hosts with a large audience",
+        "isDefault": false,
+        "isRecurring": true,
+        "hasBaseFee": true,
+        "forPayerType": "user",
+        "publiclyVisible": true,
+        "slug": "professional",
+        "avatarUrl": "",
+        "features": [
+            {
+                "id": "feat_34LGDWhqibPtRUOy5DivsLO2YX1",
+                "pathRoot": "",
+                "name": "Unlimited episodes",
+                "description": "",
+                "slug": "unlimited_episodes",
+                "avatarUrl": ""
+            },
+            {
+                "id": "feat_34LGErSsIRA0RoOwo4iuv5AzP9y",
+                "pathRoot": "",
+                "name": "Unlimited bandwidth",
+                "description": "",
+                "slug": "unlimited_bandwidth",
+                "avatarUrl": ""
+            }
+        ],
+        "freeTrialDays": null,
+        "freeTrialEnabled": false
+    }
+]

@@ -1,0 +1,59 @@
+{
+    "id": "csub_34LGmKSg8cseq7WudYy5N7MKIzo",
+    "pathRoot": "",
+    "status": "active",
+    "activeAt": "2025-10-20T18:39:55.531Z",
+    "createdAt": "2025-10-20T18:39:55.532Z",
+    "pastDueAt": null,
+    "updatedAt": "2025-10-20T18:39:55.539Z",
+    "nextPayment": null,
+    "subscriptionItems": [
+        {
+            "id": "csub_item_34LGmJQ40Sc0BLNWX7cExqIou3x",
+            "pathRoot": "",
+            "plan": {
+                "id": "cplan_34LG4kCF6SKu5SZXEHq9YS6lFu0",
+                "pathRoot": "",
+                "name": "Free",
+                "fee": {
+                    "amount": 0,
+                    "amountFormatted": "0.00",
+                    "currency": "",
+                    "currencySymbol": "$"
+                },
+                "annualFee": {
+                    "amount": 0,
+                    "amountFormatted": "0.00",
+                    "currency": "",
+                    "currencySymbol": "$"
+                },
+                "annualMonthlyFee": {
+                    "amount": 0,
+                    "amountFormatted": "0.00",
+                    "currency": "",
+                    "currencySymbol": "$"
+                },
+                "description": "",
+                "isDefault": true,
+                "isRecurring": true,
+                "hasBaseFee": false,
+                "forPayerType": "user",
+                "publiclyVisible": true,
+                "slug": "free_user",
+                "avatarUrl": "",
+                "features": [],
+                "freeTrialDays": null,
+                "freeTrialEnabled": false
+            },
+            "planPeriod": "month",
+            "status": "active",
+            "createdAt": "2025-10-20T18:39:55.534Z",
+            "periodStart": "2025-10-20T18:39:55.531Z",
+            "periodEnd": null,
+            "canceledAt": null,
+            "pastDueAt": null,
+            "isFreeTrial": false
+        }
+    ],
+    "eligibleForFreeTrial": true
+}
