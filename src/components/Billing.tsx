@@ -1,11 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCheckout, PaymentElementProvider, usePaymentElement, useSubscription, usePlans } from '@clerk/nextjs/experimental'
 import { CheckoutProvider, PaymentElement } from '@clerk/nextjs/experimental'
 import PlanCard from '@/components/PlanCard'
 import { Plan } from '@/lib/models'
 import { isFreeTier } from '@/lib/utils'
+import { Button } from './ui/button'
+import { useRouter } from 'next/navigation'
 
 function Billing() {  
   const { data: subscription } = useSubscription()
@@ -63,39 +65,71 @@ export default Billing
 
 function CustomCheckout() {
   const { checkout } = useCheckout()
-  const { plan } = checkout
+  const { plan, start, status } = checkout
+
+  useEffect(() => {
+    async function init() {
+      await start()
+    }
+    if(status === 'needs_initialization') {
+      init()
+    }
+  }, [status, start])
 
   return (
     <div className="checkout-container">
       <span>Subscribe to {plan?.name}</span>
-
-      <PaymentElementProvider checkout={checkout}>
-        <PaymentSection />
-      </PaymentElementProvider>
+      {status !== 'needs_initialization' && (
+        <PaymentElementProvider checkout={checkout}>
+          <PaymentSection />
+        </PaymentElementProvider>
+      )}
     </div>
   )
 }
 
 function PaymentSection() {
+  const router = useRouter()
   const { checkout } = useCheckout()
-  const { isConfirming, confirm } = checkout
+  const { isConfirming, confirm, finalize, error } = checkout
+
   const { isFormReady, submit } = usePaymentElement()
-  const isButtonDisabled = !isFormReady || isConfirming
+  const [isProcessing, setIsProcessing] = useState(false)
 
-  console.log(checkout)
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!isFormReady || isProcessing) return
+    setIsProcessing(true)
 
-  const subscribe = async () => {
-    const { data } = await submit()
-    if (!data) return
-    await confirm(data)
+    try {
+      // Submit payment form to get payment method
+      const { data, error } = await submit()
+      // Usually a validation error from stripe that you can ignore
+      if (error) {
+        return
+      }
+      // Confirm checkout with payment method
+      await confirm(data)
+      // Complete checkout and redirect
+      finalize({ navigate: () => {
+        router.push('/app')
+      }})
+    } catch (error) {
+      console.error('Payment failed:', error)
+    } finally {
+      setIsProcessing(false)
+    }
   }
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <PaymentElement fallback={<div>Loading payment element...</div>} />
-      <button disabled={isButtonDisabled} onClick={subscribe}>
-        {isConfirming ? 'Processing...' : 'Complete Purchase'}
+
+      {error && <div>{error.message}</div>}
+
+      <button type="submit" disabled={!isFormReady || isProcessing || isConfirming}>
+        {isProcessing || isConfirming ? 'Processing...' : 'Complete Purchase'}
       </button>
-    </>
+    </form>
   )
 }
