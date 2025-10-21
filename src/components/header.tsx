@@ -31,12 +31,12 @@ export function Header() {
       <div className='flex items-center gap-x-4'>
         <ThemeToggle />
         <SignedOut>
-          <SignInButton>
+          <Link href='/sign-in-2'>
             <Button variant='ghost'>Sign in</Button>
-          </SignInButton>
-          <SignUpButton>
+          </Link>
+          <Link href='/sign-up-2'>
             <Button>Sign up</Button>
-          </SignUpButton>
+          </Link>
         </SignedOut>
         <SignedIn>
           <Link href='/app/episodes'>

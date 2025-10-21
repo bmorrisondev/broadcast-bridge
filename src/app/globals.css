@@ -79,6 +79,42 @@
   --sidebar-ring: #9297DC;
 }
 
+.retro {
+  --radius: 0px;
+  --background: #c0c0c0;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #d4d0c8;
+  --popover-foreground: #000000;
+  --primary: #000080;
+  --primary-foreground: #ffffff;
+  --secondary: #d4d0c8;
+  --secondary-foreground: #000000;
+  --muted: #e4e0dc;
+  --muted-foreground: #000000;
+  --accent: #d4d0c8;
+  --accent-foreground: #000000;
+  --destructive: #ff0000;
+  --border: #808080;
+  --input: #808080;
+  --ring: #0000ff;
+  --chart-1: #000080;
+  --chart-2: #008080;
+  --chart-3: #800000;
+  --chart-4: #808000;
+  --chart-5: #800080;
+  --sidebar: #c0c0c0;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000080;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #d4d0c8;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #808080;
+  --sidebar-ring: #0000ff;
+  --clerk-border-radius: 0px;
+}
+
 .dark {
   --background: #0B0C16;
   --foreground: #FAFAFA;
@@ -190,5 +226,108 @@
     max-width: 100%;
     height: auto;
     border-radius: var(--radius-sm);
+  }
+}
+
+/* 90s Retro styles */
+@layer components {
+  .retro {
+    background:
+      radial-gradient(#d9d9d9 1px, transparent 1px) 0 0/6px 6px,
+      linear-gradient(#c0c0c0, #c0c0c0);
+  }
+
+  .retro a {
+    color: #0000ee;
+    text-decoration: underline;
+  }
+
+  .retro :where(button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"],
+    .btn), .retro .cl-userButton-root {
+    font-family: inherit;
+    background: #d4d0c8;
+    color: #000;
+    border: 2px solid #808080;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+    border-left-color: #ffffff;
+    border-top-color: #ffffff;
+    padding: 0.375rem 0.75rem;
+    box-shadow: inset -1px -1px 0 #00000040, inset 1px 1px 0 #ffffff80;
+    cursor: pointer;
+  }
+
+  .retro .cl-userButton-root {
+    padding: 2px;
+  }
+
+  .retro .cl-userButton-root button {
+    box-shadow: none;
+  }
+
+  .retro :where(button:active,
+    input[type="button"]:active,
+    input[type="submit"]:active,
+    input[type="reset"]:active,
+    .btn:active) {
+    border-left-color: #404040;
+    border-top-color: #404040;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+    box-shadow: inset 1px 1px 0 #00000040, inset -1px -1px 0 #ffffff80;
+  }
+
+  .retro :where(input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="search"],
+    textarea,
+    select) {
+    background: #ffffff;
+    color: #000;
+    border: 2px solid #808080;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+    border-left-color: #ffffff;
+    border-top-color: #ffffff;
+    padding: 0.375rem 0.5rem;
+    box-shadow: inset -1px -1px 0 #00000040, inset 1px 1px 0 #ffffff80;
+  }
+  .retro :where(input, textarea, select):focus {
+    outline: 1px dotted #000;
+    outline-offset: 0;
+  }
+
+  .retro table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #c0c0c0;
+    border: 2px solid #808080;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+    border-left-color: #ffffff;
+    border-top-color: #ffffff;
+  }
+  .retro thead th {
+    background: #d4d0c8;
+    text-align: left;
+    padding: 0.5rem;
+    border: 1px solid #808080;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+  }
+  .retro tbody td {
+    background: #ffffff;
+    padding: 0.5rem;
+    border: 1px solid #808080;
+  }
+
+  .retro .cl-userButton-root {
+
+    /* background-color: red;; */
   }
 }

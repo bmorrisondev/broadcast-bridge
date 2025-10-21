@@ -40,7 +40,7 @@ export default function RootLayout({
           className='h-full'
           suppressHydrationWarning
         >
-          <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased`}>
+          <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased retro`}>
             <ThemeProvider
               attribute='class'
               defaultTheme='system'

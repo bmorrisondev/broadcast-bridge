@@ -6,7 +6,6 @@ import { CheckoutProvider, PaymentElement } from '@clerk/nextjs/experimental'
 import PlanCard from '@/components/PlanCard'
 import { Plan } from '@/lib/models'
 import { isFreeTier } from '@/lib/utils'
-import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
 
 function Billing() {  
