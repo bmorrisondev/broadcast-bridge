@@ -1,0 +1,138 @@
+{
+    "id": "sess_34NnTaenGB81zb0zcnmcRFBbcjN",
+    "pathRoot": "/client/sessions",
+    "status": "pending",
+    "lastActiveAt": "2025-10-21T16:10:31.638Z",
+    "lastActiveToken": {
+        "pathRoot": "tokens",
+        "jwt": {
+            "encoded": {
+                "header": "eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDExMUFBQSIsImtpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJ0eXAiOiJKV1QifQ",
+                "payload": "eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJleHAiOjE3NjEwNjMwOTEsImZ2YSI6WzIsLTFdLCJpYXQiOjE3NjEwNjMwMzEsImlzcyI6Imh0dHBzOi8vYWNlLXBlYWNvY2stODEuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiNmE4ZWU3MjBiZDU0MTc2ZGY5Y2EiLCJuYmYiOjE3NjEwNjMwMjEsIm9yZ0lkIjpudWxsLCJwbGEiOiJ1OmZyZWVfdXNlciIsInNpZCI6InNlc3NfMzROblRhZW5HQjgxemIwemNubWNSRkJiY2pOIiwic3RzIjoicGVuZGluZyIsInN1YiI6InVzZXJfMzROblRiNndLYTFaWXNXN255Z0xTbmtEMzFLIiwidiI6Mn0",
+                "signature": "WboSRYcH-_bzeK_q28jSd-yv52bakM7HKcFxC5KyZF4ayKCa9haabe2nRpWUA8eWwyCuIccAKu0j9ecE-apWcfiI7XYv_Mk5aBMfpPkTqJPUz-TmqH5kg506iNbBCwLuLybJA9l5BUNVKSoHKTKzbEHuPPJ-8CNOWD9x_DZ9gsO6SG-TsIEVDM_4pDAqG9cueF6FukbIYqqQSNJ3lhQ3RIBc7DYR0oWoRAfKwuCJarw6NDeNCvwIGmdpl2r0tY-Ma2wagk79KajckiUX75_RKsTYAt7EewmTRz4w3a8ZuZg2C_BRPoPX9xxShjklNcyNdpzvg-geNAmly7zBNq991Q"
+            },
+            "header": {
+                "alg": "RS256",
+                "cat": "cl_B7d4PD111AAA",
+                "kid": "ins_33ptAcJ6QDF4yOdSF39BzlvSltS",
+                "typ": "JWT"
+            },
+            "claims": {
+                "__raw": "eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDExMUFBQSIsImtpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJleHAiOjE3NjEwNjMwOTEsImZ2YSI6WzIsLTFdLCJpYXQiOjE3NjEwNjMwMzEsImlzcyI6Imh0dHBzOi8vYWNlLXBlYWNvY2stODEuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiNmE4ZWU3MjBiZDU0MTc2ZGY5Y2EiLCJuYmYiOjE3NjEwNjMwMjEsIm9yZ0lkIjpudWxsLCJwbGEiOiJ1OmZyZWVfdXNlciIsInNpZCI6InNlc3NfMzROblRhZW5HQjgxemIwemNubWNSRkJiY2pOIiwic3RzIjoicGVuZGluZyIsInN1YiI6InVzZXJfMzROblRiNndLYTFaWXNXN255Z0xTbmtEMzFLIiwidiI6Mn0.WboSRYcH-_bzeK_q28jSd-yv52bakM7HKcFxC5KyZF4ayKCa9haabe2nRpWUA8eWwyCuIccAKu0j9ecE-apWcfiI7XYv_Mk5aBMfpPkTqJPUz-TmqH5kg506iNbBCwLuLybJA9l5BUNVKSoHKTKzbEHuPPJ-8CNOWD9x_DZ9gsO6SG-TsIEVDM_4pDAqG9cueF6FukbIYqqQSNJ3lhQ3RIBc7DYR0oWoRAfKwuCJarw6NDeNCvwIGmdpl2r0tY-Ma2wagk79KajckiUX75_RKsTYAt7EewmTRz4w3a8ZuZg2C_BRPoPX9xxShjklNcyNdpzvg-geNAmly7zBNq991Q",
+                "azp": "http://localhost:3000",
+                "exp": 1761063091,
+                "fva": [
+                    2,
+                    -1
+                ],
+                "iat": 1761063031,
+                "iss": "https://ace-peacock-81.clerk.accounts.dev",
+                "jti": "6a8ee720bd54176df9ca",
+                "nbf": 1761063021,
+                "orgId": null,
+                "pla": "u:free_user",
+                "sid": "sess_34NnTaenGB81zb0zcnmcRFBbcjN",
+                "sts": "pending",
+                "sub": "user_34NnTb6wKa1ZYsW7nygLSnkD31K",
+                "v": 2
+            }
+        }
+    },
+    "lastActiveOrganizationId": null,
+    "actor": null,
+    "user": {
+        "id": "user_34NnTb6wKa1ZYsW7nygLSnkD31K",
+        "pathRoot": "/me",
+        "externalId": null,
+        "username": null,
+        "emailAddresses": [
+            {
+                "id": "idn_34NnQqPykV0GVRlkPPCpioCQ620",
+                "pathRoot": "/me/email_addresses",
+                "emailAddress": "brian+1234@brianmorrison.me",
+                "matchesSsoConnection": false,
+                "linkedTo": [],
+                "verification": {
+                    "pathRoot": "",
+                    "status": "verified",
+                    "strategy": "email_code",
+                    "nonce": null,
+                    "message": null,
+                    "externalVerificationRedirectURL": null,
+                    "attempts": 1,
+                    "expireAt": "2025-10-21T16:18:04.403Z",
+                    "error": null
+                }
+            }
+        ],
+        "phoneNumbers": [],
+        "web3Wallets": [],
+        "externalAccounts": [],
+        "enterpriseAccounts": [],
+        "passkeys": [],
+        "samlAccounts": [],
+        "organizationMemberships": [],
+        "passwordEnabled": true,
+        "firstName": null,
+        "lastName": null,
+        "fullName": null,
+        "primaryEmailAddressId": "idn_34NnQqPykV0GVRlkPPCpioCQ620",
+        "primaryEmailAddress": {
+            "id": "idn_34NnQqPykV0GVRlkPPCpioCQ620",
+            "pathRoot": "/me/email_addresses",
+            "emailAddress": "brian+1234@brianmorrison.me",
+            "matchesSsoConnection": false,
+            "linkedTo": [],
+            "verification": {
+                "pathRoot": "",
+                "status": "verified",
+                "strategy": "email_code",
+                "nonce": null,
+                "message": null,
+                "externalVerificationRedirectURL": null,
+                "attempts": 1,
+                "expireAt": "2025-10-21T16:18:04.403Z",
+                "error": null
+            }
+        },
+        "primaryPhoneNumberId": null,
+        "primaryPhoneNumber": null,
+        "primaryWeb3WalletId": null,
+        "primaryWeb3Wallet": null,
+        "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJyaWQiOiJ1c2VyXzM0Tm5UYjZ3S2ExWllzVzdueWdMU25rRDMxSyJ9",
+        "hasImage": false,
+        "twoFactorEnabled": false,
+        "totpEnabled": false,
+        "backupCodeEnabled": false,
+        "publicMetadata": {},
+        "unsafeMetadata": {},
+        "createOrganizationEnabled": true,
+        "createOrganizationsLimit": null,
+        "deleteSelfEnabled": true,
+        "lastSignInAt": "2025-10-21T16:08:25.862Z",
+        "legalAcceptedAt": null,
+        "updatedAt": "2025-10-21T16:08:26.361Z",
+        "createdAt": "2025-10-21T16:08:25.854Z",
+        "cachedSessionsWithActivities": null
+    },
+    "publicUserData": {
+        "firstName": null,
+        "lastName": null,
+        "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJyaWQiOiJ1c2VyXzM0Tm5UYjZ3S2ExWllzVzdueWdMU25rRDMxSyJ9",
+        "hasImage": false,
+        "identifier": "brian+1234@brianmorrison.me"
+    },
+    "factorVerificationAge": [
+        2,
+        -1
+    ],
+    "tasks": [
+        {
+            "key": "choose-organization"
+        }
+    ],
+    "expireAt": "2025-10-28T16:08:25.862Z",
+    "abandonAt": "2025-11-20T16:08:25.862Z",
+    "createdAt": "2025-10-21T16:08:25.862Z",
+    "updatedAt": "2025-10-21T16:10:31.638Z"
+}

@@ -22,6 +22,7 @@ export default function SignUp({
   const router = useRouter();
   const [isVerifying, setIsVerifying] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [requiresOrg, setRequiresOrg] = useState(false);
 
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get("email");
@@ -47,10 +48,14 @@ export default function SignUp({
     await signUp.verifications.verifyEmailCode({
       code: otpCode,
     });
+
+    console.log("signup", signUp);
+    console.log("signUp.status", signUp.status);
+
     if (signUp.status === "complete") {
       await signUp.finalize({
         navigate: () => {
-          router.push("/billing");
+          router.push("/onboarding");
         },
       });
     }
@@ -76,6 +81,14 @@ export default function SignUp({
             <Button onClick={handleOtpSubmit}>Verify</Button>
           </div>
         </div>
+      </div>
+    )
+  }
+
+  if(requiresOrg) {
+    return (
+      <div>
+        org form
       </div>
     )
   }

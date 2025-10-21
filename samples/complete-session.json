@@ -1,0 +1,158 @@
+{
+  "response": {
+    "object": "sign_up_attempt",
+    "id": "sua_34NlGLmzTnB5oK5fBm9zdH2FPOY",
+    "status": "complete",
+    "required_fields": [
+      "email_address",
+      "password"
+    ],
+    "optional_fields": [
+      "first_name",
+      "last_name",
+      "oauth_google"
+    ],
+    "missing_fields": [],
+    "unverified_fields": [],
+    "verifications": {
+      "email_address": {
+        "object": "verification_otp",
+        "status": "verified",
+        "strategy": "email_code",
+        "attempts": 1,
+        "expire_at": 1761062414337,
+        "next_action": "",
+        "supported_strategies": [
+          "email_code"
+        ]
+      },
+      "phone_number": null,
+      "web3_wallet": null,
+      "external_account": null
+    },
+    "username": null,
+    "email_address": "brian+1234@brianmorrison.me",
+    "phone_number": null,
+    "web3_wallet": null,
+    "password_enabled": true,
+    "first_name": null,
+    "last_name": null,
+    "unsafe_metadata": {},
+    "public_metadata": {},
+    "custom_action": false,
+    "external_id": null,
+    "created_session_id": "sess_34NlKXj7p2Nwom7lt8G2T8yyrCP",
+    "created_user_id": "user_34NlKYuXIPtrC85DKjD3pn09k3y",
+    "abandon_at": 1761148213606,
+    "legal_accepted_at": null,
+    "locale": null
+  },
+  "client": {
+    "object": "client",
+    "id": "client_34LNTKEwnDlW0LChZZcKeThWPLT",
+    "sessions": [
+      {
+        "object": "session",
+        "id": "sess_34NlKXj7p2Nwom7lt8G2T8yyrCP",
+        "status": "pending",
+        "expire_at": 1761666646268,
+        "abandon_at": 1763653846268,
+        "last_active_at": 1761061846268,
+        "last_active_organization_id": null,
+        "actor": null,
+        "user": {
+          "id": "user_34NlKYuXIPtrC85DKjD3pn09k3y",
+          "object": "user",
+          "username": null,
+          "first_name": null,
+          "last_name": null,
+          "locale": null,
+          "image_url": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJyaWQiOiJ1c2VyXzM0TmxLWXVYSVB0ckM4NURLakQzcG4wOWszeSJ9",
+          "has_image": false,
+          "primary_email_address_id": "idn_34NlGQikmY4wzZrUphPeUBkMsxd",
+          "primary_phone_number_id": null,
+          "primary_web3_wallet_id": null,
+          "password_enabled": true,
+          "two_factor_enabled": false,
+          "totp_enabled": false,
+          "backup_code_enabled": false,
+          "email_addresses": [
+            {
+              "id": "idn_34NlGQikmY4wzZrUphPeUBkMsxd",
+              "object": "email_address",
+              "email_address": "brian+1234@brianmorrison.me",
+              "reserved": false,
+              "verification": {
+                "object": "verification_otp",
+                "status": "verified",
+                "strategy": "email_code",
+                "attempts": 1,
+                "expire_at": 1761062414337
+              },
+              "linked_to": [],
+              "matches_sso_connection": false,
+              "created_at": 1761061813890,
+              "updated_at": 1761061846264
+            }
+          ],
+          "phone_numbers": [],
+          "web3_wallets": [],
+          "passkeys": [],
+          "external_accounts": [],
+          "saml_accounts": [],
+          "enterprise_accounts": [],
+          "public_metadata": {},
+          "unsafe_metadata": {},
+          "external_id": null,
+          "last_sign_in_at": 1761061846268,
+          "banned": false,
+          "locked": false,
+          "lockout_expires_in_seconds": null,
+          "verification_attempts_remaining": 100,
+          "created_at": 1761061846259,
+          "updated_at": 1761061846280,
+          "delete_self_enabled": true,
+          "create_organization_enabled": true,
+          "last_active_at": 1761061846259,
+          "mfa_enabled_at": null,
+          "mfa_disabled_at": null,
+          "legal_accepted_at": null,
+          "profile_image_url": "https://www.gravatar.com/avatar?d=mp",
+          "organization_memberships": []
+        },
+        "public_user_data": {
+          "first_name": null,
+          "last_name": null,
+          "image_url": "https://img.clerk.com/eyJ0eXBlIjoiZGVmYXVsdCIsImlpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJyaWQiOiJ1c2VyXzM0TmxLWXVYSVB0ckM4NURLakQzcG4wOWszeSJ9",
+          "has_image": false,
+          "identifier": "brian+1234@brianmorrison.me",
+          "username": null,
+          "profile_image_url": "https://www.gravatar.com/avatar?d=mp"
+        },
+        "factor_verification_age": [
+          0,
+          -1
+        ],
+        "created_at": 1761061846268,
+        "updated_at": 1761061846309,
+        "tasks": [
+          {
+            "key": "choose-organization"
+          }
+        ],
+        "last_active_token": {
+          "object": "token",
+          "jwt": "eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDExMUFBQSIsImtpZCI6Imluc18zM3B0QWNKNlFERjR5T2RTRjM5QnpsdlNsdFMiLCJ0eXAiOiJKV1QifQ.eyJhenAiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJleHAiOjE3NjEwNjE5MDYsImZ2YSI6WzAsLTFdLCJpYXQiOjE3NjEwNjE4NDYsImlzcyI6Imh0dHBzOi8vYWNlLXBlYWNvY2stODEuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiN2E5YTFiYTc5MDMzYWE4NTc2NWMiLCJuYmYiOjE3NjEwNjE4MzYsIm9yZ0lkIjpudWxsLCJwbGEiOiJ1OmZyZWVfdXNlciIsInNpZCI6InNlc3NfMzRObEtYajdwMk53b203bHQ4RzJUOHl5ckNQIiwic3RzIjoicGVuZGluZyIsInN1YiI6InVzZXJfMzRObEtZdVhJUHRyQzg1REtqRDNwbjA5azN5IiwidiI6Mn0.Of3hcAhSrR1X0qav5yP18Ttdule7QvUk8W3mRPEArEIsxb-ZZZtIK0VUV8y87kxywEf1hBviGFALgdyXOU_yP_LzmpgkTwv6UqJtU4eC4eT8qT4fD5lFd9UqkxpDoh6ULr8nixghJrWldRcZIijAtREiKB5uG23_Um8HZX8WCV1wfXVJfESxB97khPFtF606OsfCRmX95l5ymQR0pgoEJPe0fxpntyzjA83r1YZwB7Z_BylDVk9Sv5KVuRErIY93uukqqJagPJn4brbzFvIPuUHJYPiaczp0zxhO0PiFH-RhNKyMYwXI1xCGrxoncHpRDQDPHTVKDpICPcMRUHPTCA"
+        }
+      }
+    ],
+    "sign_in": null,
+    "sign_up": null,
+    "last_active_session_id": "sess_34NlKXj7p2Nwom7lt8G2T8yyrCP",
+    "last_authentication_strategy": "email_code",
+    "cookie_expires_at": null,
+    "captcha_bypass": false,
+    "created_at": 1760988898321,
+    "updated_at": 1761061846304
+  }
+}

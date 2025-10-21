@@ -35,7 +35,7 @@ export default function SignIn({
       await signIn.finalize({
         navigate: () => {
 	        // Redirect to a protected route
-          router.push("/billing");
+          router.push("/onboarding");
         },
       });
     }

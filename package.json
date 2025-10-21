@@ -15,6 +15,7 @@
     "@brianmmdev/clerk-webhooks-handler": "^1.0.7",
     "@clerk/nextjs": "https://pkg.pr.new/clerk/javascript/%40clerk%2Fnextjs@1346d019305a2797949dc574fec3089ee2d80e99",
     "@clerk/themes": "^2.4.25",
+    "@clerk/types": "^4.95.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
