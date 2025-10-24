@@ -7,6 +7,7 @@ import PlanCard from '@/components/PlanCard'
 import { Plan } from '@/lib/models'
 import { isFreeTier } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import { ClerkLoaded, SignedIn } from '@clerk/nextjs'
 
 function Billing() {  
   const { data: subscription } = useSubscription()
@@ -54,9 +55,13 @@ function Billing() {
   }
 
   return (
-    <CheckoutProvider for="user" planId={selectedPlanId} planPeriod="month">
-      <CustomCheckout /> 
-    </CheckoutProvider>
+    <ClerkLoaded>
+      <SignedIn>
+        <CheckoutProvider for="user" planId={selectedPlanId} planPeriod="month">
+          <CustomCheckout /> 
+        </CheckoutProvider>
+      </SignedIn>
+    </ClerkLoaded>
   )
 }
 

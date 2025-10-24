@@ -3,7 +3,7 @@ import { ConvexClientProvider } from '@/components/convex-client-provider';
 import { Header } from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Press_Start_2P } from 'next/font/google';
 import './globals.css';
 import { shadcn } from '@clerk/themes';
 
@@ -14,6 +14,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
+const pressStart2P = Press_Start_2P({
+  variable: '--font-retro',
+  weight: '400',
   subsets: ['latin'],
 });
 
@@ -37,14 +43,15 @@ export default function RootLayout({
       <ConvexClientProvider>
         <html
           lang='en'
-          className='h-full'
+          className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} h-full`}
           suppressHydrationWarning
         >
-          <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col antialiased retro`}>
+          <body className={`flex min-h-full flex-col antialiased`}>
             <ThemeProvider
               attribute='class'
-              defaultTheme='system'
-              enableSystem
+              defaultTheme='standard'
+              themes={['standard', 'retro']}
+              value={{ standard: 'light', retro: 'retro' }}
               disableTransitionOnChange
             >
               <Header />

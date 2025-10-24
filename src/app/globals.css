@@ -83,6 +83,7 @@
   --radius: 0px;
   --background: #c0c0c0;
   --foreground: #000000;
+  --font-sans: var(--font-retro);
   --card: #ffffff;
   --card-foreground: #000000;
   --popover: #d4d0c8;
@@ -154,7 +155,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
 
@@ -246,7 +247,8 @@
     input[type="button"],
     input[type="submit"],
     input[type="reset"],
-    .btn), .retro .cl-userButton-root {
+    .btn), .retro .cl-userButton-root,
+    .retro .cl-organizationSwitcher-root {
     font-family: inherit;
     background: #d4d0c8;
     color: #000;
@@ -260,11 +262,11 @@
     cursor: pointer;
   }
 
-  .retro .cl-userButton-root {
+  .retro .cl-userButton-root, .retro .cl-organizationSwitcher-root {
     padding: 2px;
   }
 
-  .retro .cl-userButton-root button {
+  .retro .cl-userButton-root button, .retro .cl-organizationSwitcher-root button {
     box-shadow: none;
   }
 

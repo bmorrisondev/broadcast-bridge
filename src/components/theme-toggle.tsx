@@ -1,12 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import imac from '@/app/imac.png';
+import retro from '@/app/retro.png';
 
 export function ThemeToggle() {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -14,24 +16,29 @@ export function ThemeToggle() {
   }, []);
 
   function handleToggle() {
-    const current = theme === 'system' ? systemTheme : theme;
-    setTheme(current === 'dark' ? 'light' : 'dark');
+    const current = theme ?? 'standard';
+    setTheme(current === 'retro' ? 'standard' : 'retro');
   }
 
   if (!mounted) return null;
 
-  const isDark = (theme === 'system' ? systemTheme : theme) === 'dark';
+  const isRetro = (theme ?? 'standard') === 'retro';
 
   return (
     <Button
       variant='ghost'
       size='icon'
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isRetro ? 'Switch to standard theme' : 'Switch to retro theme'}
       onClick={handleToggle}
     >
-      <Sun className='h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
-      <Moon className='absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-      <span className='sr-only'>Toggle theme</span>
+      <Image
+        src={isRetro ? imac : retro}
+        alt={isRetro ? 'Retro theme' : 'Standard theme'}
+        width={20}
+        height={20}
+        priority
+      />
     </Button>
   );
 }
+
